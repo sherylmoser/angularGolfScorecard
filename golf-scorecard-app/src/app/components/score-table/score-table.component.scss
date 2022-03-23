@@ -5,3 +5,9 @@ table {
   tr.mat-footer-row {
     font-weight: bold;
   }
+  .course-table {
+    margin: 2rem 4rem;
+  }
+  td, tr {
+    min-width: 2rem;
+  }

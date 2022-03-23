@@ -19,7 +19,7 @@ export class ScoreTableComponent implements OnInit {
   backNine: CourseHole[];
   headers: string[] = [""]
 
-  displayedColumns: string[] = ['Yards', 'Par', 'Handicap'];
+  displayedColumns: string[] = ['Hole', 'Yards', 'Par', 'Handicap'];
 
   constructor(
     private playerInfoService: PlayerInfoService,
@@ -40,6 +40,7 @@ export class ScoreTableComponent implements OnInit {
         this.backNine = [];
         for (let i = 0; i < 9; i++) {
           this.frontNine.push(({
+            id: i + 1,
             par: courseHoleArray[i].teeBoxes[this.teeBoxIndex].par,
             handicap: courseHoleArray[i].teeBoxes[this.teeBoxIndex].hcp,
             teeHexColor: courseHoleArray[i].teeBoxes[this.teeBoxIndex].teeHexColor,
@@ -48,6 +49,7 @@ export class ScoreTableComponent implements OnInit {
         };
         for (let i = 9; i < 18; i++) {
           this.backNine.push(({
+            id: i + 1,
             par: courseHoleArray[i].teeBoxes[this.teeBoxIndex].par,
             handicap: courseHoleArray[i].teeBoxes[this.teeBoxIndex].hcp,
             teeHexColor: courseHoleArray[i].teeBoxes[this.teeBoxIndex].teeHexColor,
