@@ -1,0 +1,36 @@
+<div class="main-container">
+    <form class="course-form" (ngSubmit)="onSubmit()">
+        <h1>Enter Game Information</h1>
+        <mat-form-field>
+            <mat-label>Select Your Course</mat-label>
+            <mat-select [(ngModel)]="selectedCourseId" name="course" (selectionChange)="getCourseTees(selectedCourseId)"
+                required>
+                <mat-option *ngFor="let course of courses" [value]="course.value">
+                    {{course.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Select Your Tee</mat-label>
+            <mat-select [(ngModel)]="selectedTeeType" name="tee" required>
+                <mat-option *ngFor="let tee of tees" [value]="tee.value">
+                    {{tee.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div [formGroup]="form">
+            <section formArrayName="players">
+                <div *ngFor="let player of players.controls; let i = index">
+                    <div [formGroupName]="i">
+                        <mat-form-field>
+                            <mat-label>Player {{i + 1}}</mat-label>
+                            <input type="text" matInput formControlName="name">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <button mat-raised-button type="button" (click)="addPlayer()" class="add-button">Add Player</button>
+        <button mat-raised-button type="submit" class="submit-button">Play</button>
+    </form>
+</div>
