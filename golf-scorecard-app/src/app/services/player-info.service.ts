@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Player } from '../interfaces/player';
 
 @Injectable({
@@ -7,7 +8,9 @@ import { Player } from '../interfaces/player';
 export class PlayerInfoService {
   players: Player[] = [];
 
-  constructor() { }
+  constructor(
+    private db: AngularFirestore
+  ) { }
 
   setPlayerInfo(playerArray: Player[]) {
     this.players = playerArray;

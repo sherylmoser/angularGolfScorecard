@@ -1,18 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CourseName } from 'src/app/interfaces/course-name';
+import { Tee } from 'src/app/interfaces/tee';
 import { GetCourseService } from 'src/app/services/get-course.service';
 import { PlayerInfoService } from 'src/app/services/player-info.service';
 
-interface CourseName {
-  value: number;
-  viewValue: string;
-}
-
-interface Tee {
-  value: number;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-course-select-form',

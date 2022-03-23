@@ -61,5 +61,22 @@ export class ScoreTableComponent implements OnInit {
       })
     ).subscribe();
   }
+  getRowTotal(column: string, holeArray: CourseHole[]) {
+    let total = 0;
+    holeArray.map(hole => {
+      total += hole[column]
+    });
+    return total;
+  }
+  getCourseTotal(column) {
+    let total = 0;
+    this.frontNine.map(hole => {
+      total += hole[column]
+    });
+    this.backNine.map(hole => {
+      total += hole[column]
+    });
+    return total;
+  }
 
 }
