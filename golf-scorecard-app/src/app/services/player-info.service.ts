@@ -14,9 +14,12 @@ export class PlayerInfoService {
 
   setPlayerInfo(playerArray: Player[]) {
     this.players = playerArray;
+    window.localStorage.setItem('players', JSON.stringify(this.players))
   }
 
   getPlayerInfo() {
+    let playersJson = window.localStorage.getItem('players');
+    this.players = JSON.parse(playersJson)
     return this.players;
   }
 }

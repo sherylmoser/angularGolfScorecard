@@ -33,6 +33,8 @@ export class CourseSelectFormComponent implements OnInit {
     this.form = fb.group({
       players: fb.array([fb.group({
         name: [''],
+        frontNine: [[0, 0, 0, 0, 0, 0, 0, 0, 0]],
+        backNine: [[0, 0, 0, 0, 0, 0, 0, 0, 0]],
         score: [0]
       })])
     })
@@ -59,6 +61,8 @@ export class CourseSelectFormComponent implements OnInit {
   addPlayer(): void {
     this.players.push(this.fb.group({
       name: [''],
+      frontNine: [[0, 0, 0, 0, 0, 0, 0, 0, 0]],
+      backNine: [[0, 0, 0, 0, 0, 0, 0, 0, 0]],
       score: [0]
     }))
   }

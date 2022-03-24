@@ -1,87 +1,74 @@
-<div *ngFor="let player of players">
-    <p>{{player.name}}</p>
-</div>
-<div *ngIf="frontNine" class="course-table front-nine">
-    <table mat-table [dataSource]="frontNine" class="mat-elevation-z8">
-        Hole Number Column
-        <ng-container matColumnDef="Hole">
-            <th mat-header-cell *matHeaderCellDef> Hole </th>
-            <td mat-cell *matCellDef="let hole"> {{hole.id}} </td>
-            <td mat-footer-cell *matFooterCellDef> Out </td>
-        </ng-container>
+<div class="score-table">
+    <table>
+        <thead>
+            <tr>
+                <th>Hole</th>
+                <th *ngFor="let hole of frontNine">{{hole.id}}</th>
+                <th>Out</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Yards</th>
+                <td *ngFor="let hole of frontNine">{{hole.yards}}</td>
+                <th>{{getRowTotal('yards', frontNine)}}</th>
+            </tr>
+            <tr>
+                <th>Par</th>
+                <td *ngFor="let hole of frontNine">{{hole.par}}</td>
+                <th>{{getRowTotal('par', frontNine)}}</th>
 
-        Yards Column
-        <ng-container matColumnDef="Yards">
-            <th mat-header-cell *matHeaderCellDef> Yards </th>
-            <td mat-cell *matCellDef="let hole"> {{hole.yards}} </td>
-            <td mat-footer-cell *matFooterCellDef> {{getRowTotal('yards', frontNine)}} </td>
-        </ng-container>
-
-        Par Columns
-        <ng-container matColumnDef="Par">
-            <th mat-header-cell *matHeaderCellDef> Par </th>
-            <td mat-cell *matCellDef="let hole"> {{hole.par}} </td>
-            <td mat-footer-cell *matFooterCellDef> {{getRowTotal('par', frontNine)}} </td>
-        </ng-container>
-
-        Handicap Columns
-        <ng-container matColumnDef="Handicap">
-            <th mat-header-cell *matHeaderCellDef> Handicap </th>
-            <td mat-cell *matCellDef="let hole"> {{hole.handicap}} </td>
-            <td mat-footer-cell *matFooterCellDef> {{getRowTotal('handicap', frontNine)}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+            </tr>
+            <tr>
+                <th>Handicap</th>
+                <td *ngFor="let hole of frontNine">{{hole.handicap}}</td>
+                <th>{{getRowTotal('handicap', frontNine)}}</th>
+            </tr>
+            <tr *ngFor="let player of players">
+                <th>{{player.name}}</th>
+                <td *ngFor="let hole of frontNine; let i= index">
+                    <input class="score-input" type="number" #score min='0' value={{player.frontNine[i]}}
+                        (keyup)="addToScore(player, score.value, i, frontNine)">
+                </td>
+                <th>{{getScoreTotal(player, frontNine)}}</th>
+            </tr>
+        </tbody>
     </table>
 </div>
+<div class="score-table">
+    <table>
+        <thead>
+            <tr>
+                <th>Hole</th>
+                <th *ngFor="let hole of backNine">{{hole.id}}</th>
+                <th>Out</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Yards</th>
+                <td *ngFor="let hole of backNine">{{hole.yards}}</td>
+                <th>{{getRowTotal('yards', backNine)}}</th>
+            </tr>
+            <tr>
+                <th>Par</th>
+                <td *ngFor="let hole of backNine">{{hole.par}}</td>
+                <th>{{getRowTotal('par', backNine)}}</th>
 
-<div *ngIf="backNine" class="course-table back-nine">
-    <table mat-table [dataSource]="backNine" class="mat-elevation-z8">
-        Hole Number Column
-        <ng-container matColumnDef="Hole">
-            <th mat-header-cell *matHeaderCellDef> Hole </th>
-            <td mat-cell *matCellDef="let hole"> {{hole.id}} </td>
-            <td mat-footer-cell *matFooterCellDef> In </td>
-        </ng-container>
-
-        Yards Column
-        <ng-container matColumnDef="Yards">
-            <th mat-header-cell *matHeaderCellDef> Yards </th>
-            <td mat-cell *matCellDef="let hole"> {{hole.yards}} </td>
-            <td mat-footer-cell *matFooterCellDef> {{getRowTotal('yards', backNine)}} </td>
-        </ng-container>
-
-        Par Columns
-        <ng-container matColumnDef="Par">
-            <th mat-header-cell *matHeaderCellDef> Par </th>
-            <td mat-cell *matCellDef="let hole"> {{hole.par}} </td>
-            <td mat-footer-cell *matFooterCellDef> {{getRowTotal('par', backNine)}} </td>
-        </ng-container>
-
-        Handicap Columns
-        <ng-container matColumnDef="Handicap">
-            <th mat-header-cell *matHeaderCellDef> Handicap </th>
-            <td mat-cell *matCellDef="let hole"> {{hole.handicap}} </td>
-            <td mat-footer-cell *matFooterCellDef> {{getRowTotal('handicap', backNine)}} </td>
-        </ng-container>
-        <ng-container matColumnDef="total">
-            <td mat-footer-cell *matFooterCellDef>Total</td>
-        </ng-container>
-        <ng-container matColumnDef="Yards Total">
-            <td mat-footer-cell *matFooterCellDef>{{getCourseTotal('yards')}}</td>
-        </ng-container>
-        <ng-container matColumnDef="Par Total">
-            <td mat-footer-cell *matFooterCellDef>{{getCourseTotal('par')}}</td>
-        </ng-container>
-        <ng-container matColumnDef="Handicap Total">
-            <td mat-footer-cell *matFooterCellDef>{{getCourseTotal('handicap')}}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-        <tr mat-footer-row *matFooterRowDef="['total', 'Yards Total', 'Par Total', 'Handicap Total']"></tr>
+            </tr>
+            <tr>
+                <th>Handicap</th>
+                <td *ngFor="let hole of backNine">{{hole.handicap}}</td>
+                <th>{{getRowTotal('handicap', backNine)}}</th>
+            </tr>
+            <tr *ngFor="let player of players">
+                <th>{{player.name}}</th>
+                <td *ngFor="let hole of backNine; let i= index">
+                    <input class="score-input" type="number" #score min='0' value={{player.backNine[i]}}
+                        (keyup)="addToScore(player, score.value, i, backNine)">
+                </td>
+                <th>{{getScoreTotal(player, backNine)}}</th>
+            </tr>
+        </tbody>
     </table>
 </div>

@@ -43,7 +43,6 @@ export class ScoreTableComponent implements OnInit {
             id: i + 1,
             par: courseHoleArray[i].teeBoxes[this.teeBoxIndex].par,
             handicap: courseHoleArray[i].teeBoxes[this.teeBoxIndex].hcp,
-            teeHexColor: courseHoleArray[i].teeBoxes[this.teeBoxIndex].teeHexColor,
             yards: courseHoleArray[i].teeBoxes[this.teeBoxIndex].yards
           }))
         };
@@ -52,7 +51,6 @@ export class ScoreTableComponent implements OnInit {
             id: i + 1,
             par: courseHoleArray[i].teeBoxes[this.teeBoxIndex].par,
             handicap: courseHoleArray[i].teeBoxes[this.teeBoxIndex].hcp,
-            teeHexColor: courseHoleArray[i].teeBoxes[this.teeBoxIndex].teeHexColor,
             yards: courseHoleArray[i].teeBoxes[this.teeBoxIndex].yards
           }))
         }
@@ -61,22 +59,35 @@ export class ScoreTableComponent implements OnInit {
       })
     ).subscribe();
   }
-  getRowTotal(column: string, holeArray: CourseHole[]) {
+  getRowTotal(row: string, holeArray: CourseHole[]) {
     let total = 0;
-    holeArray.map(hole => {
-      total += hole[column]
+    holeArray?.map(hole => {
+      total += hole[row]
     });
     return total;
   }
-  getCourseTotal(column) {
+  getCourseTotal(row) {
     let total = 0;
     this.frontNine.map(hole => {
-      total += hole[column]
+      total += hole[row]
     });
     this.backNine.map(hole => {
-      total += hole[column]
+      total += hole[row]
     });
     return total;
   }
-
+  addToScore(player: Player, value: string, index: number, holeArray) {
+    if (!parseInt(value)) {
+      return
+    }
+    player[holeArray][index] = parseInt(value);
+    this.playerInfoService.setPlayerInfo(this.players);
+  }
+  getScoreTotal(player: Player, holeArray) {
+    let total = 0;
+    player[holeArray]?.map(score => {
+      total += score;
+    })
+    return total;
+  }
 }

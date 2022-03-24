@@ -1,14 +1,18 @@
-table {
-    width: 100%;
+.score-table {
+    min-width: 100px;
+    overflow-x: scroll;
   }
-  
-  tr.mat-footer-row {
-    font-weight: bold;
+  table {
+    margin: 4rem 2rem;
+    
+    font-size: 1.2em;
   }
-  .course-table {
-    margin: 2rem 4rem;
-    overflow: scroll;
-  }
-  td, tr {
-    min-width: 2rem;
+  th, td {
+    min-width: 3rem;
+    text-align: center;
+    padding: .5rem .8rem;
+    
+    .score-input{
+      max-width: 2.5rem
+    }
   }
