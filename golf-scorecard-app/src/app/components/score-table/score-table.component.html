@@ -30,7 +30,7 @@
                     <input class="score-input" type="number" #score min='0' value={{player.frontNine[i]}}
                         (keyup)="addToScore(player, score.value, i, frontNine)">
                 </td>
-                <th>{{getScoreTotal(player, frontNine)}}</th>
+                <th>{{outTotal(player)}}</th>
             </tr>
         </tbody>
     </table>
@@ -41,7 +41,8 @@
             <tr>
                 <th>Hole</th>
                 <th *ngFor="let hole of backNine">{{hole.id}}</th>
-                <th>Out</th>
+                <th>In</th>
+                <th>Total</th>
             </tr>
         </thead>
         <tbody>
@@ -49,25 +50,28 @@
                 <th>Yards</th>
                 <td *ngFor="let hole of backNine">{{hole.yards}}</td>
                 <th>{{getRowTotal('yards', backNine)}}</th>
+                <th>{{getCourseTotal('yards')}}</th>
             </tr>
             <tr>
                 <th>Par</th>
                 <td *ngFor="let hole of backNine">{{hole.par}}</td>
                 <th>{{getRowTotal('par', backNine)}}</th>
-
+                <th>{{getCourseTotal('par')}}</th>
             </tr>
             <tr>
                 <th>Handicap</th>
                 <td *ngFor="let hole of backNine">{{hole.handicap}}</td>
                 <th>{{getRowTotal('handicap', backNine)}}</th>
+                <th>{{getCourseTotal('handicap')}}</th>
             </tr>
-            <tr *ngFor="let player of players">
+            <tr *ngFor="let player of players" class="players">
                 <th>{{player.name}}</th>
                 <td *ngFor="let hole of backNine; let i= index">
                     <input class="score-input" type="number" #score min='0' value={{player.backNine[i]}}
                         (keyup)="addToScore(player, score.value, i, backNine)">
                 </td>
-                <th>{{getScoreTotal(player, backNine)}}</th>
+                <th>{{inTotal(player)}}</th>
+                <th>{{playerTotal(player)}}</th>
             </tr>
         </tbody>
     </table>

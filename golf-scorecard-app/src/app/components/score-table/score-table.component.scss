@@ -1,18 +1,39 @@
+@import '../../../styles.scss';
+
 .score-table {
     min-width: 100px;
     overflow-x: scroll;
   }
   table {
     margin: 4rem 2rem;
-    
     font-size: 1.2em;
+    border-collapse: collapse;
+    :first-child {
+    border-top: 1px solid $borderGrey;
+    }
+  }
+  thead {
+    border-bottom: 2px solid black;
+  }
+  tr {
+    border-bottom: 1px solid $borderGrey;
+    border-left: 1px solid $borderGrey;
+  }
+  .player-row {
+    border-top: 1px solid black;
   }
   th, td {
     min-width: 3rem;
     text-align: center;
-    padding: .5rem .8rem;
-    
+    padding: .8rem;
+    margin: 0;
+    border-right: 1px solid $borderGrey;
     .score-input{
-      max-width: 2.5rem
+      max-width: 2.5rem;
+      border: 1px solid $borderGrey;
+      height: 2rem;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 1rem;
     }
   }

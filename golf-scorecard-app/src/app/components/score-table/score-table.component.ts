@@ -61,7 +61,7 @@ export class ScoreTableComponent implements OnInit {
   }
   getRowTotal(row: string, holeArray: CourseHole[]) {
     let total = 0;
-    holeArray?.map(hole => {
+    holeArray.map(hole => {
       total += hole[row]
     });
     return total;
@@ -76,18 +76,32 @@ export class ScoreTableComponent implements OnInit {
     });
     return total;
   }
-  addToScore(player: Player, value: string, index: number, holeArray) {
+  addToScore(player: Player, value: string, index: number, holeArray: CourseHole[]) {
     if (!parseInt(value)) {
       return
     }
-    player[holeArray][index] = parseInt(value);
+    if (holeArray === this.frontNine) {
+      player.frontNine[index] = parseInt(value);
+    } else {
+      player.backNine[index] = parseInt(value)
+    }
     this.playerInfoService.setPlayerInfo(this.players);
   }
-  getScoreTotal(player: Player, holeArray) {
+  outTotal(player: Player) {
     let total = 0;
-    player[holeArray]?.map(score => {
+    player.frontNine.map(score => {
       total += score;
     })
-    return total;
+    return total
+  }
+  inTotal(player: Player) {
+    let total = 0;
+    player.backNine.map(score => {
+      total += score;
+    })
+    return total
+  }
+  playerTotal(player: Player) {
+    return this.outTotal(player) + this.inTotal(player)
   }
 }
