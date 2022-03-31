@@ -7,20 +7,20 @@ import { PlayerInfoService } from '../services/player-info.service';
 })
 export class NameCheckPipe implements PipeTransform {
   players: Player[] = [];
-  counter: number = 0;
+  counter: number = 1;
 
   constructor(
     private playerService: PlayerInfoService
   ) { }
 
-  transform(name: string): string {
+  transform(name: string, index: number): string {
     this.players = this.playerService.getPlayerInfo();
-    this.players.map((player) => {
-      if (name === player.name) {
-        name = name + this.counter;
-        this.counter++
-      }
-    })
+    // this.players.map((player) => {
+    //   if (name === player.name) {
+    //     name = name + this.counter;
+    //     this.counter++;
+    //   }
+    // })
     return name;
   }
 

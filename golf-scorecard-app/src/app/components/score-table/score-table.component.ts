@@ -17,9 +17,6 @@ export class ScoreTableComponent implements OnInit {
   teeBoxIndex: number;
   frontNine: CourseHole[];
   backNine: CourseHole[];
-  headers: string[] = [""]
-
-  displayedColumns: string[] = ['Hole', 'Yards', 'Par', 'Handicap'];
 
   constructor(
     private playerInfoService: PlayerInfoService,
@@ -31,13 +28,21 @@ export class ScoreTableComponent implements OnInit {
     this.players = this.playerInfoService.getPlayerInfo();
     this.route.params.pipe(
       switchMap(params => {
-        this.teeBoxIndex = params['teeTypeId'] - 1;
+        console.log(params['courseId']);
+
+        if (params['courseId'] === '19002') {
+          this.teeBoxIndex = params['teeTypeId'] - 2;
+        } else {
+          this.teeBoxIndex = params['teeTypeId'] - 1;
+        }
         return this.courseService.getCourseInfo(params['courseId'])
       }),
       map((res: any) => {
         let courseHoleArray = res.data.holes;
         this.frontNine = [];
         this.backNine = [];
+        console.log(courseHoleArray);
+
         for (let i = 0; i < 9; i++) {
           this.frontNine.push(({
             id: i + 1,
@@ -55,7 +60,6 @@ export class ScoreTableComponent implements OnInit {
           }))
         }
         console.log(this.frontNine);
-
       })
     ).subscribe();
   }

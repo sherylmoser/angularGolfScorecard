@@ -1,4 +1,4 @@
 export interface Tee {
-    value: number;
-    viewValue: string;
+    teeId: number;
+    teeType: string;
 }

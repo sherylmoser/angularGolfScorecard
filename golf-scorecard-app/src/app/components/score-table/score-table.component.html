@@ -24,8 +24,8 @@
                 <td *ngFor="let hole of frontNine">{{hole.handicap}}</td>
                 <th>{{getRowTotal('handicap', frontNine)}}</th>
             </tr>
-            <tr *ngFor="let player of players">
-                <th>{{player.name}}</th>
+            <tr *ngFor="let player of players; let i = index" class="player-row">
+                <th>{{player.name | nameCheck: i}}</th>
                 <td *ngFor="let hole of frontNine; let i= index">
                     <input class="score-input" type="number" #score min='0' value={{player.frontNine[i]}}
                         (keyup)="addToScore(player, score.value, i, frontNine)">
@@ -64,8 +64,8 @@
                 <th>{{getRowTotal('handicap', backNine)}}</th>
                 <th>{{getCourseTotal('handicap')}}</th>
             </tr>
-            <tr *ngFor="let player of players" class="players">
-                <th>{{player.name}}</th>
+            <tr *ngFor="let player of players; let i = index" class="player-row">
+                <th>{{player.name | nameCheck: i }}</th>
                 <td *ngFor="let hole of backNine; let i= index">
                     <input class="score-input" type="number" #score min='0' value={{player.backNine[i]}}
                         (keyup)="addToScore(player, score.value, i, backNine)">

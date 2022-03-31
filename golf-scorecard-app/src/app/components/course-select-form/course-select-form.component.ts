@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { CourseName } from 'src/app/interfaces/course-name';
 import { Tee } from 'src/app/interfaces/tee';
@@ -16,13 +17,13 @@ export class CourseSelectFormComponent implements OnInit {
   selectedCourseId: number = 0;
   selectedTeeType: number = 0;
   courses: CourseName[] = [
-    { value: 11819, viewValue: 'Thanksgiving Point' },
-    { value: 18300, viewValue: 'Fox Hollow' },
-    { value: 19002, viewValue: 'Spanish Oaks' },
+    { courseId: 11819, name: 'Thanksgiving Point' },
+    { courseId: 18300, name: 'Fox Hollow' },
+    { courseId: 19002, name: 'Spanish Oaks' },
   ];
   tees: Tee[] = [];
   form: FormGroup;
-  fb: FormBuilder = new FormBuilder
+  fb: FormBuilder = new FormBuilder;
 
   constructor(
     private courseService: GetCourseService,
@@ -31,6 +32,8 @@ export class CourseSelectFormComponent implements OnInit {
     fb: FormBuilder
   ) {
     this.form = fb.group({
+      course: [this.courses, Validators.required],
+      tee: [this.tees, Validators.required],
       players: fb.array([fb.group({
         name: [''],
         frontNine: [[0, 0, 0, 0, 0, 0, 0, 0, 0]],
@@ -47,7 +50,7 @@ export class CourseSelectFormComponent implements OnInit {
       this.tees = [];
       res.data.holes[0].teeBoxes.forEach((teeBox: { teeTypeId: number; teeType: string; }) => {
         this.tees.push({
-          value: teeBox.teeTypeId, viewValue: teeBox.teeType
+          teeId: teeBox.teeTypeId, teeType: teeBox.teeType
         })
       });
     });
@@ -67,7 +70,8 @@ export class CourseSelectFormComponent implements OnInit {
 
   onSubmit() {
     this.playerInfoService.setPlayerInfo(this.players.value);
-    this.router.navigate(['/scorecard', { courseId: this.selectedCourseId, teeTypeId: this.selectedTeeType }])
+    // this.router.navigate(['/scorecard', { courseId: this.selectedCourseId, teeTypeId: this.selectedTeeType }])
+    this.router.navigate(['/scorecard', { courseId: this.form.controls['course'].value, teeTypeId: this.form.controls['tee'].value }])
   }
 
 }

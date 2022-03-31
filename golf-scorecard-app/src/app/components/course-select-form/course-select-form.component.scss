@@ -20,4 +20,7 @@
         color: white;
         font-size: 1.2rem;
     }
+    .submit-button:disabled {
+        background-color: #2d6a4fb1;
+    }
 }
